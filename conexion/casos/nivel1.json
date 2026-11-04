@@ -1,0 +1,12 @@
+[
+  {"id": "TC-001", "entrada": "Consulta el estado de mi solicitud SOL-1025", "tool_esperada": "consultar_solicitud", "args_esperados": {"id_solicitud": "SOL-1025"}},
+  {"id": "TC-002", "entrada": "Por favor revisa cómo va la solicitud SOL-2048", "tool_esperada": "consultar_solicitud", "args_esperados": {"id_solicitud": "SOL-2048"}},
+  {"id": "TC-003", "entrada": "Hola, radiqué la solicitud SOL-0007 hace una semana, ¿ya la aprobaron?", "tool_esperada": "consultar_solicitud", "args_esperados": {"id_solicitud": "SOL-0007"}},
+  {"id": "TC-004", "entrada": "estado sol-3310", "tool_esperada": "consultar_solicitud", "args_esperados": {"id_solicitud": "SOL-3310"}},
+  {"id": "TC-005", "entrada": "Necesito saber en qué va mi trámite número SOL-9001, gracias", "tool_esperada": "consultar_solicitud", "args_esperados": {"id_solicitud": "SOL-9001"}},
+  {"id": "TC-006", "entrada": "¿Me puedes decir el estado de la solicitud SOL-4521? Es urgente", "tool_esperada": "consultar_solicitud", "args_esperados": {"id_solicitud": "SOL-4521"}},
+  {"id": "TC-007", "entrada": "Quiero consultar el estado de mi solicitud", "tool_esperada": null, "args_esperados": null, "nota": "Falta el ID: no debe inventarlo"},
+  {"id": "TC-008", "entrada": "Hola, buenos días", "tool_esperada": null, "args_esperados": null, "nota": "Saludo: no debe llamar herramientas"},
+  {"id": "TC-009", "entrada": "¿Cuáles son los horarios de atención de las oficinas?", "tool_esperada": null, "args_esperados": null, "nota": "Fuera del alcance de la herramienta"},
+  {"id": "TC-010", "entrada": "Mi solicitud es la SOL-1500. Quiero saber si ya tiene respuesta", "tool_esperada": "consultar_solicitud", "args_esperados": {"id_solicitud": "SOL-1500"}}
+]

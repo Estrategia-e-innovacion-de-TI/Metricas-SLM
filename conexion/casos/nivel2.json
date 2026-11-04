@@ -1,0 +1,12 @@
+[
+  {"id": "TC-101", "entrada": "Consulta el estado de mi solicitud SOL-1025", "tool_esperada": "consultar_solicitud", "args_esperados": {"id_solicitud": "SOL-1025"}},
+  {"id": "TC-102", "entrada": "No reconozco el movimiento TRX-5531, ¿me das el detalle?", "tool_esperada": "consultar_transaccion", "args_esperados": {"id_transaccion": "TRX-5531"}},
+  {"id": "TC-103", "entrada": "Dame la información de mi producto PRD-0042", "tool_esperada": "consultar_producto", "args_esperados": {"codigo_producto": "PRD-0042"}},
+  {"id": "TC-104", "entrada": "¿Qué cupo tiene mi tarjeta? El código es PRD-7788", "tool_esperada": "consultar_producto", "args_esperados": {"codigo_producto": "PRD-7788"}},
+  {"id": "TC-105", "entrada": "Me hicieron un cobro raro, la referencia es TRX-0099", "tool_esperada": "consultar_transaccion", "args_esperados": {"id_transaccion": "TRX-0099"}},
+  {"id": "TC-106", "entrada": "Pedí un crédito de libre inversión, radicado SOL-6120. ¿En qué va?", "tool_esperada": "consultar_solicitud", "args_esperados": {"id_solicitud": "SOL-6120"}},
+  {"id": "TC-107", "entrada": "Revisa la transacción TRX-3002 que salió de mi cuenta", "tool_esperada": "consultar_transaccion", "args_esperados": {"id_transaccion": "TRX-3002"}},
+  {"id": "TC-108", "entrada": "Quiero ver los detalles de mi cuenta de ahorros", "tool_esperada": null, "args_esperados": null, "nota": "Falta el código del producto"},
+  {"id": "TC-109", "entrada": "¿Cuál es la tasa de cambio del dólar hoy?", "tool_esperada": null, "args_esperados": null, "nota": "Ninguna herramienta aplica"},
+  {"id": "TC-110", "entrada": "Tengo el producto PRD-1200 y quiero saber sus condiciones", "tool_esperada": "consultar_producto", "args_esperados": {"codigo_producto": "PRD-1200"}}
+]
