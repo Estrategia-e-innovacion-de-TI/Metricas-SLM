@@ -25,7 +25,7 @@ from openpyxl import load_workbook
 
 LABELS = ("Queja", "Petición", "Reclamo")
 INVALID = "INVALIDA"
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_REFERENCE = ROOT / "data" / "pqrs_anonimizado.xlsx"
 DEFAULT_RESULTS = ROOT / "resultados" / "pqrs_gateway_results.jsonl"
 DEFAULT_OUTPUT_DIR = ROOT / "metricas"

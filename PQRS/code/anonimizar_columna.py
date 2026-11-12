@@ -7,13 +7,13 @@ El script reemplaza por etiquetas los siguientes datos:
 - nombres asociados a etiquetas de persona (nombre, titular, señor/a, me llamo, etc.).
 
 Uso recomendado:
-    python code/anonimizar_columna.py \
+    python PQRS/code/anonimizar_columna.py \\
         --input datos.xlsx \
         --output datos_anonimizados.xlsx \
         --column "Nota"
 
 Para CSV:
-    python code/anonimizar_columna.py \
+    python PQRS/code/anonimizar_columna.py \\
         --input datos.csv \
         --output datos_anonimizados.csv \
         --column "Nota"

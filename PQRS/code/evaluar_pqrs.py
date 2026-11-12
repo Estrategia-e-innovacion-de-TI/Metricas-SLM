@@ -2,8 +2,8 @@
 """Evalúa clasificación y resumen de PQRS contra un gateway OpenAI-compatible.
 
 Modos:
-    python evaluar_pqrs.py --connectivity-only
-    python evaluar_pqrs.py --input ../data/pqrs_gateway_input.jsonl
+    python PQRS/code/evaluar_pqrs.py --connectivity-only
+    python PQRS/code/evaluar_pqrs.py --input data/pqrs_gateway_input.jsonl
 
 El modo de evaluación envía únicamente id/description del JSONL. Las etiquetas
 Clasificación y Resumen de referencia permanecen en el XLSX local y no forman
@@ -25,8 +25,9 @@ from urllib.request import Request, urlopen
 
 
 ALLOWED_LABELS = {"Queja", "Petición", "Reclamo"}
-DEFAULT_INPUT = Path(__file__).resolve().parents[1] / "data" / "pqrs_gateway_input.jsonl"
-DEFAULT_OUTPUT = Path(__file__).resolve().parents[1] / "resultados" / "pqrs_gateway_results.jsonl"
+REPOSITORY_ROOT = Path(__file__).resolve().parents[2]
+DEFAULT_INPUT = REPOSITORY_ROOT / "data" / "pqrs_gateway_input.jsonl"
+DEFAULT_OUTPUT = REPOSITORY_ROOT / "resultados" / "pqrs_gateway_results.jsonl"
 
 
 def load_dotenv() -> None:

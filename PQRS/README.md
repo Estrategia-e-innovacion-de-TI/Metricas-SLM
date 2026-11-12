@@ -19,8 +19,12 @@ code/
   generar_reporte_html_pqrs.py Reporte HTML local a partir de métricas.
   anonimizar_columna.py         Utilidad local de anonimización.
   .env.example                  Plantilla de configuración sin secretos.
-Docs/
+docs/
+  Linea_Base_Tecnica_Evaluacion_Qwen_32B_Casos_Bancarios.docx
   Linea_Base_Tecnica_Evaluacion_Qwen_32B_Casos_Bancarios_CONSOLIDADO.docx
+  Resultados_Evaluacion_PQRS_Qwen3-32B.md
+presentaciones/
+  Resultados de la evaluación de Qwen3-32B_con_PQRS.pptx
 
 Directorios locales no publicados:
   data/                          Dataset y referencias de evaluación.
@@ -48,14 +52,14 @@ No se requiere instalar una biblioteca HTTP adicional: la ejecución usa la bibl
 Copiar la plantilla y completar los valores únicamente en la copia local:
 
 ```bash
-cd code
+cd PQRS/code
 cp .env.example .env
 ```
 
 En Windows Git Bash también puede usarse:
 
 ```bash
-cp code/.env.example code/.env
+cp PQRS/code/.env.example PQRS/code/.env
 ```
 
 Variables:
@@ -70,11 +74,11 @@ Variables:
 | `USE_RESPONSE_FORMAT` | No | Envía `response_format={"type":"json_object"}` cuando vale `true`. Por defecto: `false`. |
 | `TEST_PROMPT` | No | Texto usado por la prueba de conectividad. |
 
-El archivo `code/.env` está excluido por `.gitignore`. No subir tokens, URLs con credenciales ni certificados privados.
+El archivo `PQRS/code/.env` está excluido por `.gitignore`. No subir tokens, URLs con credenciales ni certificados privados.
 
 ## Dónde están el prompt y el payload
 
-### Evaluación PQRS: `code/evaluar_pqrs.py`
+### Evaluación PQRS: `PQRS/code/evaluar_pqrs.py`
 
 El prompt se construye en `build_messages(description)`:
 
@@ -108,7 +112,7 @@ Cuando `USE_RESPONSE_FORMAT=true`, se agrega:
 
 El identificador local del caso no se incluye como campo independiente dentro del payload. Se conserva en el proceso local para relacionar cada respuesta con el caso de entrada. Las columnas de referencia, como la clasificación humana y el resumen de referencia, no se envían al modelo.
 
-### Prueba de conectividad: `code/gateway_model_test.py`
+### Prueba de conectividad: `PQRS/code/gateway_model_test.py`
 
 La prueba usa `TEST_PROMPT` y construye un payload mínimo:
 
@@ -132,13 +136,13 @@ Esta prueba no envía casos PQRS. Sirve para comprobar endpoint, autenticación,
 Desde la raíz del repositorio:
 
 ```bash
-python code/evaluar_pqrs.py --connectivity-only
+python PQRS/code/evaluar_pqrs.py --connectivity-only
 ```
 
 También puede ejecutarse el script mínimo:
 
 ```bash
-python code/gateway_model_test.py
+python PQRS/code/gateway_model_test.py
 ```
 
 La salida informa el endpoint configurado, el modelo, el estado TLS, el código HTTP y el tiempo de respuesta. No imprime la clave API.
@@ -154,7 +158,7 @@ Los archivos de entrada deben existir localmente. La entrada esperada es un JSON
 Ejemplo de ejecución limitada:
 
 ```bash
-python code/evaluar_pqrs.py \
+python PQRS/code/evaluar_pqrs.py \
   --input data/pqrs_gateway_input.jsonl \
   --output resultados/pqrs_gateway_results.jsonl \
   --limit 5
@@ -176,7 +180,7 @@ Estos resultados están excluidos del repositorio mediante `resultados/`.
 El cálculo lee la referencia desde el XLSX local y las predicciones desde el JSONL local. No hace llamadas de red:
 
 ```bash
-python code/calcular_metricas_pqrs.py
+python PQRS/code/calcular_metricas_pqrs.py
 ```
 
 La salida genera en `metricas/`:
@@ -189,7 +193,7 @@ El detalle exportado contiene solo identificador, etiqueta real, predicción, co
 La prueba interna del cálculo puede ejecutarse sin datos:
 
 ```bash
-python code/calcular_metricas_pqrs.py --self-test
+python PQRS/code/calcular_metricas_pqrs.py --self-test
 ```
 
 ### 4. Generar el reporte HTML local
@@ -197,7 +201,7 @@ python code/calcular_metricas_pqrs.py --self-test
 Después de calcular las métricas:
 
 ```bash
-python code/generar_reporte_html_pqrs.py
+python PQRS/code/generar_reporte_html_pqrs.py
 ```
 
 El reporte se escribe en `metricas/reporte_evaluacion_pqrs.html` y usa únicamente el JSON de métricas local.
@@ -209,7 +213,7 @@ Referencia PQRS local ──┐
                          ├─ evaluación local de métricas
 Entrada JSONL local ────┤
                          │
-                         └─ code/evaluar_pqrs.py
+                         └─ PQRS/code/evaluar_pqrs.py
                                    │
                                    │ payload: model + messages + parámetros
                                    ▼
@@ -221,7 +225,7 @@ Entrada JSONL local ────┤
 
 - La referencia humana no se envía al modelo.
 - El payload de evaluación contiene `description` como mensaje de usuario.
-- La API key se obtiene de `code/.env` o del entorno y se envía solo como encabezado.
+- La API key se obtiene de `PQRS/code/.env` o del entorno y se envía solo como encabezado.
 - Las respuestas crudas se conservan localmente para auditoría y no se publican en este repositorio.
 - La clasificación recuperada retirando un envoltorio Markdown debe reportarse separada del cumplimiento estricto de JSON.
 - Una métrica de clasificación no demuestra por sí sola calidad de resumen, seguridad ni aptitud para producción.
@@ -230,11 +234,15 @@ Entrada JSONL local ────┤
 
 La evaluación consolidada está en:
 
-`Docs/Linea_Base_Tecnica_Evaluacion_Qwen_32B_Casos_Bancarios_CONSOLIDADO.docx`
+`PQRS/docs/Linea_Base_Tecnica_Evaluacion_Qwen_32B_Casos_Bancarios_CONSOLIDADO.docx`
+
+Los resultados numéricos están en:
+
+`PQRS/docs/Resultados_Evaluacion_PQRS_Qwen3-32B.md`
 
 La presentación ejecutiva está en:
 
-`Resultados de la evaluación de Qwen3-32B_con_PQRS.pptx`
+`PQRS/presentaciones/Resultados de la evaluación de Qwen3-32B_con_PQRS.pptx`
 
 La presentación documenta la comparación entre la línea base y el prompt con ejemplos sintéticos. Los resultados deben interpretarse junto con las limitaciones descritas en el documento consolidado y con los archivos de evidencia locales.
 
@@ -246,7 +254,7 @@ El `.gitignore` excluye de forma intencional:
 - `resultados/`
 - `metricas/`
 - `fraude/`
-- `code/.env`
+- `PQRS/code/.env`
 - Cachés de Python y archivos locales de IDE/Windows.
 
 No eliminar estas exclusiones para publicar datos de evaluación sin una revisión específica de privacidad y trazabilidad.
