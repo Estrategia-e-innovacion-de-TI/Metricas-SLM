@@ -1,0 +1,23 @@
+# Métricas y archivos locales de evaluación
+metricas/
+
+# Resultados generados por las evaluaciones
+resultados/
+
+# Investigación separada de fraude
+fraude/
+
+# Entornos y secretos
+.env
+.venv/
+venv/
+
+# Python
+__pycache__/
+*.py[cod]
+
+# Archivos locales de IDE/OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
