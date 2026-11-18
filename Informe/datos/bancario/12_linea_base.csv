@@ -1,0 +1,11 @@
+﻿modelo,métrica,definición,valor,fuente
+qwen.qwen3-32b-v1:0,Tool selection accuracy,Herramienta correcta (o ninguna cuando correspondía) / casos evaluados,100.0%,"Etapa 3, niveles 1 y 2"
+qwen.qwen3-32b-v1:0,Argument accuracy,Llamadas con todos los argumentos correctos / llamadas con la herramienta correcta,100.0%,"Etapa 3, niveles 1 y 2"
+qwen.qwen3-32b-v1:0,Task success rate,Tareas completadas correctamente / casos evaluados,100.0%,"Etapa 3, niveles 1 y 2"
+qwen.qwen3-32b-v1:0,F1-score macro,"Promedio del F1 por herramienta, incluida la opción de no llamar ninguna",1.000,"Etapa 3, niveles 1 y 2"
+qwen.qwen3-32b-v1:0,Exactitud de secuencia,Flujos multipaso con la secuencia de llamadas esperada / flujos,87.5%,"Etapa 5, niveles 3 y 4"
+qwen.qwen3-32b-v1:0,Task success rate multipaso,"Flujos con secuencia, acciones y respuesta correctas / flujos",87.5%,"Etapa 5, niveles 3 y 4"
+qwen.qwen3-32b-v1:0,Latencia P50,Mediana del tiempo de respuesta por solicitud,0.61 s,Todas las solicitudes
+qwen.qwen3-32b-v1:0,Latencia P95,Percentil 95 del tiempo de respuesta por solicitud,1.33 s,Todas las solicitudes
+qwen.qwen3-32b-v1:0,Tokens por tarea exitosa,Tokens totales de la sesión / tareas exitosas,615,Todas las suites
+qwen.qwen3-32b-v1:0,Costo por tarea exitosa,Costo total del experimento / tareas exitosas,Pendiente: falta el precio de Bedrock,Todas las suites

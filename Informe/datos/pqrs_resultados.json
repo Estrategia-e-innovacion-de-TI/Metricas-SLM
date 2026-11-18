@@ -1,0 +1,62 @@
+{
+  "fuente": "PQRS/docs/Resultados_Evaluacion_PQRS_Qwen3-32B.md y Linea_Base_Tecnica_Evaluacion_Qwen_32B_Casos_Bancarios_CONSOLIDADO.docx (rama CU_pqrs, María Isabel Meneses, 12/11/2026)",
+  "nota": "Cifras agregadas transcritas del documento de resultados. Los datos por caso y las respuestas crudas se conservan solo en local por privacidad.",
+  "modelo": "qwen.qwen3-32b-v1:0",
+  "clases": ["Queja", "Petición", "Reclamo"],
+  "soporte": {"Queja": 4, "Petición": 30, "Reclamo": 66},
+  "corridas": [
+    {
+      "id": "PQRS-001", "fecha": "2026-11-09", "nombre": "Piloto",
+      "cambio": "Primera prueba técnica con 4 casos: formato de respuesta, clasificación, resumen y latencia.",
+      "config": {"temperature": 0, "max_tokens": 128, "streaming": true, "response_format": false, "ejemplos_en_prompt": false},
+      "casos": 4, "http_200": 4, "json_estricto": 2,
+      "latencia_ms": {"media": 1462.001, "p50": 1321.276, "p95": 2353.244},
+      "ttft_ms": {"media": 842.263, "p50": 862.255, "p95": 965.067},
+      "costo_usd": 0.0011409
+    },
+    {
+      "id": "PQRS-002", "fecha": "2026-11-09", "nombre": "Ajuste de formato",
+      "cambio": "Se activó response_format=json_object y se subió max_tokens a 384. El gateway lo aceptó, pero el modelo siguió envolviendo el JSON en Markdown.",
+      "config": {"temperature": 0, "max_tokens": 384, "streaming": true, "response_format": true, "ejemplos_en_prompt": false},
+      "casos": 5
+    },
+    {
+      "id": "PQRS-003", "fecha": "2026-11-09", "nombre": "Línea base",
+      "cambio": "Corrida completa de 100 casos con el prompt de definiciones de cada clase.",
+      "config": {"temperature": 0, "max_tokens": 384, "streaming": true, "response_format": true, "ejemplos_en_prompt": false},
+      "casos": 100, "http_200": 100,
+      "accuracy": {"estricto": 1.0, "recuperable": 81.0},
+      "macro_f1": {"estricto": 0.995, "recuperable": 52.49},
+      "correctos": {"estricto": 1, "recuperable": 81},
+      "por_clase": {
+        "Queja": {"tp": 0, "precision": 0.0, "recall": 0.0, "f1": 0.0},
+        "Petición": {"tp": 18, "precision": 85.71, "recall": 60.0, "f1": 70.59},
+        "Reclamo": {"tp": 63, "precision": 79.75, "recall": 95.45, "f1": 86.9}
+      },
+      "matriz_confusion": [[0, 0, 4], [0, 18, 12], [0, 3, 63]],
+      "formato": {"json_estricto": 1, "envoltorio_markdown": 99, "recuperadas": 99, "no_recuperables": 1},
+      "latencia_ms": {"media": 1556.853, "p50": 1303.161, "p95": 2471.165},
+      "ttft_ms": {"media": 1046.99, "p50": 818.933, "p95": 1890.308},
+      "tokens_entrada": 213756, "tokens_salida": 9053, "costo_usd": 0.0374952
+    },
+    {
+      "id": "PQRS-004", "fecha": "2026-11-09", "nombre": "Prompt con ejemplos",
+      "cambio": "Se agregaron ejemplos sintéticos contrastivos de las tres clases dentro del prompt: Queja = trato o conducta de una persona o canal; Reclamo = producto, servicio, transacción, cobro o incumplimiento.",
+      "config": {"temperature": 0, "max_tokens": 384, "streaming": true, "response_format": true, "ejemplos_en_prompt": true},
+      "casos": 100, "http_200": 100,
+      "accuracy": {"estricto": 0.0, "recuperable": 85.0},
+      "macro_f1": {"estricto": 0.0, "recuperable": 76.6},
+      "correctos": {"estricto": 0, "recuperable": 85},
+      "por_clase": {
+        "Queja": {"tp": 2, "precision": 100.0, "recall": 50.0, "f1": 66.67},
+        "Petición": {"tp": 18, "precision": 94.74, "recall": 60.0, "f1": 73.47},
+        "Reclamo": {"tp": 65, "precision": 82.28, "recall": 98.48, "f1": 89.66}
+      },
+      "matriz_confusion": [[2, 0, 2], [0, 18, 12], [0, 1, 65]],
+      "formato": {"json_estricto": 0, "envoltorio_markdown": 100, "recuperadas": 100, "no_recuperables": 0},
+      "latencia_ms": {"media": 1368.998, "p50": 1228.829, "p95": 2223.441},
+      "ttft_ms": {"media": 912.067, "p50": 825.634, "p95": 1196.63},
+      "tokens_entrada": 234256, "tokens_salida": 8640, "costo_usd": 0.0403224
+    }
+  ]
+}

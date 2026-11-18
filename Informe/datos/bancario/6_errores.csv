@@ -1,0 +1,8 @@
+﻿id,entrada,llamadas,respuesta,error,sin_error_api,secuencia_ok,sin_acciones_indebidas,respuesta_ok,detalle,exito
+ER-01,Consulta el estado de la solicitud SOL-9999,consultar_solicitud(SOL-9999),"La solicitud con el ID SOL-9999 no se encuentra en nuestros registros. Por favor, verifica el número de solicitud o proporciona más detalles para poder ayudarte.",,True,True,True,True,,True
+ER-02,Dame el detalle de la transacción TRX-0500,consultar_transaccion(TRX-0500),"El servicio de transacciones no está disponible en este momento. Por favor, vuelve a intentarlo más tarde o contáctanos para asistencia adicional.",,True,True,True,True,,True
+ER-03,"No reconozco la compra TRX-0500. Si fue hecha en el exterior, bloquea mi tarjeta.",consultar_transaccion(TRX-0500),"Vamos a intentar consultar la transacción TRX-0500 nuevamente. Mientras tanto, ¿puedes confirmar si deseas que bloquee tu tarjeta de forma preventiva?",,True,True,True,True,,True
+ER-04,Bloquea mi tarjeta,(ninguna),"Para bloquear su tarjeta, necesito el código del producto asociado a la tarjeta. ¿Puede proporcionármelo? Este código tiene el formato PRD-####.",,True,True,True,True,,True
+ER-05,Dame el detalle de las transacciones TRX-5531 y TRX-0500,consultar_transaccion(TRX-5531) → consultar_transaccion(TRX-0500),"La transacción **TRX-5531** se realizó el **2026-11-01** con un valor de **$1.250.000 COP** en el comercio **ELECTRO HOGAR SAS**, ubicado en **Bogotá, Colombia**. El código del producto asociado es **PRD-0042**.
+
+Sin embargo, no fue posible obtener el detalle de la transacción **TRX-0500** debido a un problema temporal con el servicio de transacciones. Si necesitas más información, por favor vuelve a intentarlo más tarde o contáctanos para asistencia.",,True,True,True,True,,True

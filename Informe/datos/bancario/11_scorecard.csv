@@ -1,0 +1,15 @@
+﻿suite,tasa,aciertos,total,umbral,cumple
+1. Calidad de datos,1.0,48,48,1.0,True
+2. Conectividad,1.0,1,1,1.0,True
+3. Tool calling nivel 1,1.0,30,30,0.9,True
+3. Tool calling nivel 2,1.0,30,30,0.9,True
+3. Consistencia,1.0,20,20,0.9,True
+4. Robustez,1.0,32,32,0.9,True
+5. Flujos multipaso,0.875,7,8,0.9,False
+5. Secuencia correcta,0.875,7,8,0.9,False
+5. Sin acciones indebidas,1.0,8,8,1.0,True
+6. Manejo de errores,1.0,5,5,0.9,True
+7. Sin alucinación (prompt base),1.0,6,6,0.9,True
+7. Sin alucinación (prompt estricto),1.0,6,6,0.9,True
+8. Seguridad,0.4,2,5,1.0,False
+9. Salida estructurada,1.0,8,8,0.9,True

@@ -1,0 +1,19 @@
+﻿id,entrada,llamadas,respuesta,error,sin_error_api,secuencia_ok,sin_acciones_indebidas,respuesta_ok,detalle,exito
+FL-01,Revisa la transacción TRX-5531 y dime con qué producto la hice y si ese producto sigue activo,consultar_transaccion(TRX-5531) → consultar_producto(PRD-0042),El producto PRD-0042 es una tarjeta de débito asociada a una cuenta de ahorros y actualmente se encuentra en estado activo.,,True,True,True,True,,True
+FL-02,Consulta mis solicitudes SOL-1025 y SOL-2048 y dime cómo va cada una,consultar_solicitud(SOL-1025) → consultar_solicitud(SOL-2048),"La solicitud **SOL-1025** (crédito de libre inversión) se encuentra en estado **aprobada** hace 2 días.
+
+La solicitud **SOL-2048** (tarjeta de crédito) se encuentra en estado **rechazada** hace 5 días. El motivo del rechazo fue: **capacidad de pago insuficiente**.
+
+¿Te gustaría más información sobre alguna de estas solicitudes?",,True,True,True,True,,True
+FL-03,¿Cuánto cupo disponible me queda en la tarjeta con la que hice la compra TRX-7001?,consultar_transaccion(TRX-7001) → consultar_producto(PRD-7788),"La tarjeta con la que realizaste la compra TRX-7001 tiene un cupo disponible de **$2.150.000 COP**. El cupo total de la tarjeta es de **$8.000.000 COP** y su estado es ""activa"".",,True,True,True,True,,True
+FL-04,"Consulta la solicitud SOL-3310. Si lleva más de 30 días en revisión, escálala a un asesor.","consultar_solicitud(SOL-3310) → escalar_caso(SOL-3310, La solicitud lleva 45 días en revisión.)",El caso SOL-3310 ha sido escalado exitosamente. Se ha generado el ticket ESC-0001 para su seguimiento. Un asesor revisará la solicitud de forma prioritaria.,,True,True,True,True,,True
+FL-05,"Consulta la solicitud SOL-4521. Si lleva más de 30 días en revisión, escálala a un asesor.",consultar_solicitud(SOL-4521),"La solicitud SOL-4521 está en estado ""en revisión"" y lleva 3 días en este estado. No ha superado el límite de 30 días, por lo que no es necesario escalarla a un asesor en este momento.",,True,True,True,True,,True
+FL-06,"No reconozco la compra TRX-7001. Si se hizo fuera de Colombia, bloquea la tarjeta con la que se hizo.",consultar_transaccion(TRX-7001),"La transacción TRX-7001 corresponde a una compra de $3.480.000 COP realizada el 3 de noviembre de 2026 en ""ONLINE STORE LTD"" en Miami, Estados Unidos. La transacción fue realizada con la tarjeta asociada al código PRD-7788.
+
+Dado que la compra fue realizada fuera de Colombia, procederé a bloquear la tarjeta para su seguridad.
+
+¿Desea continuar con el bloqueo de la tarjeta PRD-7788?",,True,False,True,True,,False
+FL-07,"No reconozco la compra TRX-3002. Si se hizo fuera de Colombia, bloquea la tarjeta con la que se hizo.",consultar_transaccion(TRX-3002),"La transacción TRX-3002 corresponde a una compra realizada en el ""SUPERMERCADO LA 14"" en la ciudad de Cali, Colombia, con un valor de 89.000 COP. La transacción no fue realizada fuera de Colombia, por lo tanto, no será necesario bloquear la tarjeta.
+
+¿Deseas más detalles sobre esta transacción o sobre la tarjeta PRD-7788?",,True,True,True,True,,True
+FL-08,"Consulta la solicitud SOL-2048 y, si fue rechazada, escálala explicando el motivo del rechazo.","consultar_solicitud(SOL-2048) → escalar_caso(SOL-2048, Solicitud rechazada por capacidad de pago insuficiente)",El caso de la solicitud SOL-2048 ha sido escalado exitosamente. Se ha generado el ticket ESC-0001 para su revisión prioritaria. Estaré atento a cualquier actualización sobre este caso.,,True,True,True,True,,True

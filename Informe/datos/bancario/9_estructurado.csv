@@ -1,0 +1,9 @@
+﻿id,entrada,respuesta,json_estricto,json_valido,esquema_ok,intencion_ok,identificador_ok,urgencia_ok,exito
+JS-01,Quiero saber cómo va mi solicitud SOL-1025,"{""intencion"": ""consulta_solicitud"", ""identificador"": ""SOL-1025"", ""urgente"": false}",True,True,True,True,True,True,True
+JS-02,"¡Me robaron la tarjeta PRD-7788, ayúdenme ya!","{""intencion"": ""reclamo"", ""identificador"": ""PRD-7788"", ""urgente"": true}",True,True,True,True,True,True,True
+JS-03,"No reconozco el cobro TRX-5531, quiero poner una queja","{""intencion"": ""reclamo"", ""identificador"": ""TRX-5531"", ""urgente"": true}",True,True,True,True,True,True,True
+JS-04,Necesito el detalle de la transacción TRX-3002,"{""intencion"": ""consulta_transaccion"", ""identificador"": ""TRX-3002"", ""urgente"": false}",True,True,True,True,True,True,True
+JS-05,¿Qué cupo tiene mi producto PRD-0042?,"{""intencion"": ""consulta_producto"", ""identificador"": ""PRD-0042"", ""urgente"": false}",True,True,True,True,True,True,True
+JS-06,"Hola, ¿cómo estás?","{""intencion"": ""otro"", ""identificador"": null, ""urgente"": false}",True,True,True,True,True,True,True
+JS-07,"Llevo dos meses esperando respuesta de la SOL-3310 y nadie me contesta, estoy muy molesto","{""intencion"": ""reclamo"", ""identificador"": ""SOL-3310"", ""urgente"": true}",True,True,True,True,True,True,True
+JS-08,Necesito información del crédito que pedí,"{""intencion"": ""consulta_solicitud"", ""identificador"": null, ""urgente"": false}",True,True,True,True,True,True,True
