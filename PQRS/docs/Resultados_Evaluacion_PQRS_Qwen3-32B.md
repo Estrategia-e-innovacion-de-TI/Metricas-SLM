@@ -1,6 +1,6 @@
 # Resultados de evaluación de Qwen3-32B para PQRS
 
-Documento de resultados medidos. No contiene prompts, payloads, textos de solicitudes, respuestas crudas ni identificadores de casos.
+Documento de resultados medidos. Contiene los prompts versionados utilizados en PQRS-003 y PQRS-004, pero no contiene payloads con textos de solicitudes, respuestas crudas ni identificadores de casos.
 
 ## 1. Alcance
 
@@ -191,7 +191,50 @@ Filas: clase real. Columnas: clase predicha.
 - Estos resultados miden clasificación y desempeño técnico; no constituyen una evaluación completa de calidad del resumen, seguridad, costos operativos bajo carga ni aptitud para producción.
 - La comparación debe conservar el mismo dataset, referencias, configuración y método de cálculo.
 
-## 8. Fuentes locales de trazabilidad
+## 8. Prompts utilizados
+
+Los dos prompts se enviaron como mensaje `system`. En ambos casos, el mensaje `user` fue la descripción anonimizada del caso (`description`); no se enviaron las etiquetas ni los resúmenes de referencia.
+
+### 8.1 PQRS-003 — línea base
+
+Este es el prompt de clasificación y resumen utilizado en la línea base. La corrida PQRS-003 utilizó este texto con `temperature=0`, `max_tokens=384`, streaming y `response_format={"type":"json_object"}`.
+
+```text
+Clasifica y resume la solicitud según su intención principal. No clasifiques por la simple aparición de las palabras 'queja', 'reclamo' o 'petición'; pueden usarse de forma coloquial y no necesariamente coincidir con la etiqueta correcta.
+
+Definiciones operativas:
+- Petición: solicitud de información, explicación, trámite, documento, actualización o acción, sin que predomine una inconformidad por una falla del producto, servicio, transacción o atención.
+- Reclamo: manifestación de inconformidad relacionada con un producto, servicio, transacción, cobro, pago, obligación o incumplimiento, en la que se solicita corrección, solución, reversión, reconocimiento o cumplimiento.
+- Queja: manifestación de inconformidad relacionada principalmente con la conducta, trato, atención o actuación de una persona, canal o proceso de atención.
+
+Reglas:
+1. Clasifica por la intención y el problema principal, no por palabras clave.
+2. Si dice 'presento una queja' pero describe un cobro incorrecto, pago pendiente, producto defectuoso o corrección de una operación, clasifica según el problema principal, normalmente Reclamo.
+3. Si dice 'reclamo' pero solo solicita información o explicación sin alegar falla o incumplimiento, clasifica como Petición.
+4. Si hay varias situaciones, usa la solicitud o el remedio principal.
+5. No agregues información que no esté en la solicitud.
+
+Responde únicamente con un objeto JSON válido, sin markdown ni texto adicional. Usa exactamente las claves classification y summary. classification debe ser exactamente una de: Queja, Petición, Reclamo. summary debe ser un resumen breve y fiel.
+```
+
+### 8.2 PQRS-004 — ejemplos sintéticos
+
+PQRS-004 conservó todo el prompt de PQRS-003 y agregó, antes de la instrucción final de JSON, los siguientes ejemplos sintéticos contrastivos:
+
+```text
+Ejemplos sintéticos de contraste:
+- Queja: 'El asesor me trató de manera irrespetuosa y se negó a atender mi solicitud.' La inconformidad principal es el trato o la atención de una persona.
+- Reclamo: 'Solicito corregir el cobro duplicado realizado en mi tarjeta.' La inconformidad principal es una operación, cobro o producto y se solicita una solución.
+- Petición: 'Necesito conocer los requisitos para actualizar mis datos.' Se solicita información o un trámite sin una inconformidad predominante.
+- Si una persona dice que presenta una queja, pero describe un cobro incorrecto, una transacción pendiente o un producto defectuoso, clasifica como Reclamo.
+- Si la inconformidad principal es por el trato, la conducta o la atención recibida, clasifica como Queja, aunque también solicite una respuesta.
+```
+
+Por tanto, el prompt efectivo de PQRS-004 es el prompt completo de PQRS-003, seguido de este bloque de ejemplos, y luego la misma instrucción final de respuesta JSON. Los ejemplos no se enviaron como casos adicionales; solo formaron parte del mensaje `system`.
+
+La implementación reproducible del prompt de PQRS-004 está en `PQRS/code/evaluar_pqrs.py`, función `build_messages(description)`.
+
+## 9. Fuentes locales de trazabilidad
 
 Los cálculos provienen de los siguientes archivos locales, excluidos del repositorio:
 
@@ -202,4 +245,4 @@ Los cálculos provienen de los siguientes archivos locales, excluidos del reposi
 
 La metodología y el registro consolidado de las corridas están documentados en:
 
-`Docs/Linea_Base_Tecnica_Evaluacion_Qwen_32B_Casos_Bancarios_CONSOLIDADO.docx`
+`PQRS/docs/Linea_Base_Tecnica_Evaluacion_Qwen_32B_Casos_Bancarios_CONSOLIDADO.docx`
