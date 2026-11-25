@@ -1,8 +1,14 @@
+# Datos usados
+data/
+
 # Métricas y archivos locales de evaluación
 metricas/
 
 # Resultados generados por las evaluaciones
 resultados/
+
+# Resultados generados por las evaluaciones en la ejecución de qwen
+resultados_isa/
 
 # Investigación separada de fraude
 fraude/

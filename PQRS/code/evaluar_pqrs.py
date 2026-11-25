@@ -127,14 +127,18 @@ def build_messages(description: str) -> list[dict[str, str]]:
     ]
 
 
-def build_payload(messages: list[dict[str, str]], stream: bool) -> bytes:
+def build_payload(
+    messages: list[dict[str, str]],
+    stream: bool,
+    use_response_format: bool | None = None,
+) -> bytes:
     payload: dict[str, Any] = {
         "model": MODEL_NAME,
         "messages": messages,
         "temperature": 0,
         "max_tokens": 384,
     }
-    if USE_RESPONSE_FORMAT:
+    if USE_RESPONSE_FORMAT if use_response_format is None else use_response_format:
         payload["response_format"] = {"type": "json_object"}
     if stream:
         payload["stream"] = True
@@ -179,10 +183,17 @@ def parse_json_content(text: str) -> tuple[str | None, str | None, str | None]:
     return classification, summary, None
 
 
-def send_non_stream(messages: list[dict[str, str]]) -> dict[str, Any]:
+def send_non_stream(
+    messages: list[dict[str, str]],
+    use_response_format: bool | None = None,
+) -> dict[str, Any]:
     started = time.perf_counter()
     try:
-        with urlopen(make_request(build_payload(messages, stream=False)), timeout=TIMEOUT, context=ssl_context()) as response:
+        with urlopen(
+            make_request(build_payload(messages, stream=False, use_response_format=use_response_format)),
+            timeout=TIMEOUT,
+            context=ssl_context(),
+        ) as response:
             body = response.read()
             elapsed = time.perf_counter() - started
             data = json.loads(body.decode("utf-8", errors="replace"))
@@ -195,14 +206,21 @@ def send_non_stream(messages: list[dict[str, str]]) -> dict[str, Any]:
         return {"status": None, "elapsed": time.perf_counter() - started, "ttft": None, "data": None, "error": f"{type(exc).__name__}: {exc}"}
 
 
-def send_stream(messages: list[dict[str, str]]) -> dict[str, Any]:
+def send_stream(
+    messages: list[dict[str, str]],
+    use_response_format: bool | None = None,
+) -> dict[str, Any]:
     started = time.perf_counter()
     first_token = None
     parts: list[str] = []
     usage: dict[str, Any] = {}
     finish_reason = None
     try:
-        with urlopen(make_request(build_payload(messages, stream=True)), timeout=TIMEOUT, context=ssl_context()) as response:
+        with urlopen(
+            make_request(build_payload(messages, stream=True, use_response_format=use_response_format)),
+            timeout=TIMEOUT,
+            context=ssl_context(),
+        ) as response:
             for raw_line in response:
                 line = raw_line.decode("utf-8", errors="replace").strip()
                 if not line.startswith("data:"):
@@ -281,18 +299,31 @@ def connectivity_only() -> int:
     return 0
 
 
-def evaluate(input_path: Path, output_path: Path, limit: int | None, stream: bool) -> int:
+def evaluate(
+    input_path: Path,
+    output_path: Path,
+    limit: int | None,
+    stream: bool,
+    use_response_format: bool | None = None,
+    prompt_version: str = "pqrs-003",
+) -> int:
     validate_config()
     cases = read_cases(input_path, limit)
     output_path.parent.mkdir(parents=True, exist_ok=True)
     with output_path.open("w", encoding="utf-8", newline="\n") as handle:
         for case in cases:
             if stream:
-                response = send_stream(build_messages(case["description"]))
+                response = send_stream(
+                    build_messages(case["description"], prompt_version),
+                    use_response_format=use_response_format,
+                )
                 raw_text = response.get("text", "")
                 usage = response.get("usage", {})
             else:
-                response = send_non_stream(build_messages(case["description"]))
+                response = send_non_stream(
+                    build_messages(case["description"], prompt_version),
+                    use_response_format=use_response_format,
+                )
                 raw_text, usage = "", {}
                 if response["data"] is not None:
                     try:
